@@ -1,0 +1,122 @@
+# Esempio di file di configurazione
+
+Questa pagina contiene un esempio di file di configurazione:
+
+```
+# Hiawatha main configuration file
+#
+
+
+# GENERAL SETTINGS
+#
+ServerId = www-data
+ConnectionsTotal = 150
+ConnectionsPerIP = 10
+SystemLogfile = /var/log/hiawatha/system.log
+GarbageLogfile = /var/log/hiawatha/garbage.log
+
+
+# BINDING SETTINGS
+# A binding is where a client can connect to.
+#
+Binding {
+    Port = 80
+    MaxRequestSize = 128
+    TimeForRequest = 3,20
+}
+
+Binding {
+    Port = 443
+    MaxRequestSize = 128
+    TimeForRequest = 3,20
+    SSLcertFile = hiawatha.pem
+}
+
+# BANNING SETTINGS
+# Deny service to clients who misbehave.
+#
+BanOnGarbage = 300
+BanOnMaxPerIP = 60
+BanOnMaxReqSize = 300
+KickOnBan = yes
+RebanDuringBan = yes
+
+
+# COMMON GATEWAY INTERFACE (CGI) SETTINGS
+# These settings can be used to run CGI applications. Use the 'php-fcgi'
+# tool to start PHP as a FastCGI daemon.
+#
+CGIextension = cgi
+CGIhandler = /usr/bin/perl:pl
+CGIhandler = /usr/bin/php-cgi:php
+CGIhandler = /usr/bin/python:py
+CGIhandler = /usr/bin/ruby:rb
+CGIhandler = /usr/bin/ssi-cgi:shtml
+
+FastCGIserver {
+    FastCGIid = PHP5
+    ConnectTo = 127.0.0.1:2005
+    Extension = php
+}
+
+
+# URL TOOLKIT
+# These URL toolkit rules are made for the Banshee PHP framework,
+# which can be downloaded from: http://banshee.leisink.org/
+#
+UrlToolkit {
+    ToolkitID = banshee
+    RequestURI isfile Return
+    Match ^/(favicon.ico|robots.txt|sitemap.xml)$ Return
+    Match .*\?(.*) Rewrite /index.php?$1
+    Match .* Rewrite /index.php
+}
+
+
+# DEFAULT WEBSITE
+# It is wise to use your IP address as the hostname of the default website
+# and give it a blank webpage. By doing so, automated webscanners won't find
+# your possible vulnerable website.
+#
+Hostname = 208.77.188.166
+WebsiteRoot = /var/www/hiawatha
+StartFile = index.html
+AccessLogfile = /var/log/hiawatha/access.log
+ErrorLogfile = /var/log/hiawatha/error.log
+
+
+# VIRTUAL HOSTS
+# Use a VirtualHost section to declare the websites you want to host.
+#
+VirtualHost {
+    Hostname = files.example.com
+    WebsiteRoot = /var/www/example.com/files/public
+    AccessLogfile = /var/www/example.com/files/logfiles/access.log
+    ErrorLogfile = /var/www/example.com/files/logfiles/error.log
+    ShowIndex = yes
+}
+
+VirtualHost {
+    Hostname = admin.example.com
+    WebsiteRoot = /var/www/example.com/admin/public
+    StartFile = index.php
+    AccessLogfile = /var/www/example.com/admin/logfiles/access.log
+    ErrorLogfile = /var/www/example.com/admin/logfiles/error.log
+    Alias = /mysql:/usr/share/phpmyadmin
+    Alias = /mail:/usr/share/squirrelmail
+    AccessList = allow 192.168.0.1, deny all
+}
+
+VirtualHost {
+    Hostname = www.example.com, *.example.com
+    WebsiteRoot = /var/www/example.com/www/public
+    StartFile = index.php
+    AccessLogfile = /var/www/example.com/www/logfiles/access.log
+    ErrorLogfile = /var/www/example.com/www/logfiles/error.log
+    TimeForCGI = 10
+    UseFastCGI = PHP5
+    UseToolkit = banshee
+}
+```
+
+Pagina originale: [https://www.hiawatha-webserver.org/howto/example_configuration](https://www.hiawatha-webserver.org/howto/example_configuration)

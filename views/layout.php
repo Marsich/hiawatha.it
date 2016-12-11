@@ -47,15 +47,13 @@ $last_modified = date('d-m-Y H:i', filemtime(urldecode($_SERVER['DOCUMENT_ROOT']
         <script src="static/js/jquery.min.js"></script>
         <script src="static/js/prettify.js"></script>
         <script src="static/js/codemirror.min.js"></script>
-	<!-- <link rel="stylesheet" href="static/css/font-awesome.min.css">	-->
-	<!-- <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> -->
     </head>
 <body>
     <div id="main">
         <?php if(USE_WIKITTEN_LOGO === true): ?>
-            <a href="http://wikitten.vizuina.com" id="logo" target="_blank" class="hidden-phone">
-                <img src="static/img/logo.png" alt="">
-                <div class="bubble">Remember to check for updates!</div>
+            <a href="https://www.hiawatha-webserver.org/" id="logo" target="_blank" class="hidden-phone">
+                <img src="static/img/hiawatha_logo.png" alt="">
+                <div class="bubble">Visita il sito originale!</div>
             </a>
         <?php endif; ?>
         <div class="inner">

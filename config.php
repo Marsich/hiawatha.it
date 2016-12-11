@@ -23,7 +23,7 @@ define('USE_PAGE_METADATA', true);
 //define('USE_DARK_THEME', false);
 
 // Disable the Wikitten logo here
-define('USE_WIKITTEN_LOGO', false);
+define('USE_WIKITTEN_LOGO', true);
 
 // Enable PasteBin plugin ?
 // define('ENABLE_PASTEBIN', true);

@@ -3,10 +3,10 @@
 // first rename it to `config.php`.
 
 // Custom name for your wiki:
-define('APP_NAME', 'Manuale Hiawatha');
+define('APP_NAME', 'Manuale Hiawatha in Italiano');
 
 // Set the filename of the automatic homepage here
-//define('DEFAULT_FILE', 'index.md');
+define('DEFAULT_FILE', '01-index.md');
 
 // Custom path to your wiki's library:
 //define('LIBRARY', '/library');
